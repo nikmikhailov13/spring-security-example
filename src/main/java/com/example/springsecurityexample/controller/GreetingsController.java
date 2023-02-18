@@ -17,8 +17,6 @@ public class GreetingsController {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-    System.out.println(authentication.toString());
-
     return ResponseEntity.ok("hello user with id " + authentication.getName());
   }
 

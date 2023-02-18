@@ -13,10 +13,10 @@ public class TokenProvider {
 
   private static final String SECRET = "Yn2kjibddFAWtnPJ2AFlL8WXmohJMCvigQggaEypa5E";
 
-  public String createToken(Long userId) {
+  public String createToken(String userEmail) {
 
     return Jwts.builder()
-        .setSubject(userId.toString())
+        .setSubject(userEmail)
         .setIssuedAt(Date.from(Instant.ofEpochSecond(1466796822L)))
         .setExpiration(Date.from(Instant.ofEpochSecond(4622470422L)))
         .signWith(
@@ -26,11 +26,11 @@ public class TokenProvider {
         .compact();
   }
 
-  public Long getUserIdFromToken(String token) {
+  public String getUserEmail(String token) {
     Claims claims = Jwts.parser().setSigningKey(TextCodec.BASE64.decode(SECRET))
         .parseClaimsJws(token).getBody();
 
-    return Long.parseLong(claims.getSubject());
+    return claims.getSubject();
   }
 
   public boolean validateToken(String authToken) {

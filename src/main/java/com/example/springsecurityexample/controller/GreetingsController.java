@@ -20,9 +20,4 @@ public class GreetingsController {
     return ResponseEntity.ok("hello user with id " + authentication.getName());
   }
 
-  @GetMapping("/bye")
-  public ResponseEntity<String> bye() {
-    return ResponseEntity.ok("bye");
-  }
-
 }

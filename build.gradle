@@ -4,14 +4,6 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.0'
 }
 
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'com.example.springsecurityexample.SpringSecurityExampleApplication'
-        )
-    }
-}
-
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
@@ -37,8 +29,29 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
+bootJar {
+    manifest {
+        attributes 'Start-Class': 'com.example.springsecurityexample.SpringSecurityExampleApplication'
+        mainClass = 'com.example.springsecurityexample.SpringSecurityExampleApplication'
+    }
+}
+tasks.named("bootJar") {
+    mainClass = 'com.example.springsecurityexample.SpringSecurityExampleApplication'
+}
+springBoot {
+    mainClass = 'com.example.springsecurityexample.SpringSecurityExampleApplication'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
+tasks.named("bootJar") {
+    archiveClassifier = 'boot'
+}
 
-tasks.named('bootJar') {     launchScript() }
+tasks.named("jar") {
+    archiveClassifier = ''
+}
+tasks.named("bootJar") {
+    launchScript()
+}
